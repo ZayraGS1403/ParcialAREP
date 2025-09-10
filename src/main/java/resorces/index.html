@@ -64,6 +64,15 @@
                 xhttp.open("GET", "/stats");
                 xhttp.send();
             }
+            function loadMedia() {
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function () {
+                    document.getElementById("setrespmsg").innerHTML = this.responseText;
+                };
+                xhttp.open("GET", "/media");
+                xhttp.send();
+            }
+
         </script>
                 
     </body>

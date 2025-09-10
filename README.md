@@ -35,6 +35,8 @@ http://localhost:37000/cliente
   "count": 1
 }`
 
+![alt text](image.png)
+
 2. /list
    - Respuesta: `{
   "status": "OK",
@@ -46,6 +48,8 @@ http://localhost:37000/cliente
   "status": "OK",
   "message": "list_cleared"
 }`
+
+![alt text](image-1.png)
 
 4. /stats
    - Respuesta: `{

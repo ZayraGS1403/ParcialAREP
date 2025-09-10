@@ -59,13 +59,12 @@ public class Facade {
                 }
             }
 
-            System.out.println(firstLine);
 
             String path = firstLine.split(" ")[1];
 
             if (path.startsWith("/cliente")) {
                 outputLine = readStaticFile();
-            } else if (path.startsWith("/add") ) {
+            } else if (path.startsWith("/add") || path.startsWith("/list") || path.startsWith("/clear") || path.startsWith("/stats") || path.startsWith("/media")){
                 String result = connection(path);
                 if (result.contains("Error")){
                     outputLine = "HTTP/1.1 400 OK\r\n"

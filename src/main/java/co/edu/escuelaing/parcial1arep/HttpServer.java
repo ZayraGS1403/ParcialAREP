@@ -81,9 +81,16 @@ public class HttpServer {
                         + "Content-Type: application/json\r\n"
                         + "\r\n"
                         + statsComand(path);
+            }else if (path.startsWith("/media")) {
+                System.out.println("entre por aqui con path----------------" + path);
+                outputLine = "HTTP/1.1 200 OK\r\n"
+                        + "Content-Type: application/json\r\n"
+                        + "\r\n"
+                        + mediaComand();
             } else {
                 outputLine = getNotFoundResponse();
             }
+            
 
             out.println(outputLine);
             out.close();
@@ -92,6 +99,32 @@ public class HttpServer {
         }
 
         serverSocket.close();
+    }
+    
+    private static double calcularMedia(ArrayList<Double> numeros) {
+        if (numeros.isEmpty()) {
+            return 0;
+        }
+        double suma = 0;
+        for (double num : numeros) {
+            suma += num;
+        }
+        return suma / numeros.size();
+    }
+
+    private static String mediaComand() {
+        if (dataStore.isEmpty()) {
+            return "{\"status\":\"ERR\",\"error\":\"empty_list\"}";
+        }
+
+        ArrayList<Double> numbers = new ArrayList<>();
+        for (String s : dataStore) {
+            numbers.add(Double.parseDouble(s));
+        }
+
+        double mean = calcularMedia(numbers);
+
+        return "{\"status\":\"ok\",\"mean\":\"" + mean + "\"}";
     }
 
     private static String addComand(String path) {
@@ -126,7 +159,7 @@ public class HttpServer {
             numbers.add(Double.parseDouble(s));
         }
 
-        double mean = numbers.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+        double mean = calcularMedia(numbers);
         double variance = numbers.stream().mapToDouble(n -> Math.pow(n - mean, 2)).average().orElse(0.0);
         double stddev = Math.sqrt(variance);
 
@@ -149,5 +182,6 @@ public class HttpServer {
                 + "</body>\n"
                 + "</html>\n";
     }
+    
 
 }
