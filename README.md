@@ -69,5 +69,10 @@ estadisticas
 
 ![alt text](image-4.png)
 
+
+
+# video
+https://www.youtube.com/shorts/SvTzYACRmYM
+
 ## Autor
 Zayra Gutierrez
