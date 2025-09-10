@@ -8,7 +8,6 @@ import java.io.*;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -83,7 +82,7 @@ public class HttpServer {
                         + "\r\n"
                         + statsComand(path);
             } else {
-                outputLine = getMethodNotSupportedResponse();
+                outputLine = getNotFoundResponse();
             }
 
             out.println(outputLine);
@@ -95,68 +94,42 @@ public class HttpServer {
         serverSocket.close();
     }
 
-    //metodo para add
     private static String addComand(String path) {
-        String query = path.split("\\?")[1];
-        String param = query.split("=")[1];
+        try {
+            String query = path.split("\\?")[1];
+            String param = query.split("=")[1];
+            double num = Double.parseDouble(param);
+            dataStore.add(param);
 
-        dataStore.add(param);
-
-        // { "status": "ok", "added": "3.5", "count": "1" }
-        return "{\"status\":\"" + "ok" + "\","
-                + "\"added\":\"" + param + "\","
-                + "\"count\":\"" + 1 + "\","
-                + "}";
-        
-        // error 400
-        // { "status": "ERR", "error": "invalidNumber" }
-        
-        
+            return "{\"status\":\"ok\",\"added\":\"" + param + "\",\"count\":\"" + dataStore.size() + "\"}";
+        } catch (Exception e) {
+            return "{\"status\":\"ERR\",\"error\":\"invalidNumber\"}";
+        }
     }
 
+
     private static String listComand(String path) {
-        String query = path.split("\\?")[1];
-        String param = query.split("=")[1];
-
-        String value = dataStore.get(param);
-
-        // { "status": "ok", "values": "[3.5,2.0,1.0]" }
-        return "{\"status\":\"" + param + "\","
-                + "\"values\":\"" + value + "\""
-                + "}";
+        return "{\"status\":\"ok\",\"values\":" + dataStore.toString() + "}";
     }
 
     private static String clearComand(String path) {
-        String query = path.split("\\?")[1];
-        String param = query.split("=")[1];
-
-        String value = dataStore.get(param);
-
-        // { "status": "ok", "message": "listCleared" }
-        return "{\"status\":\"" + param + "\","
-                + "\"message\":\"" + value + "\""
-                + "}";
+        dataStore.clear();
+        return "{\"status\":\"ok\",\"message\":\"list_cleared\"}";
     }
 
     private static String statsComand(String path) {
-        String query = path.split("\\?")[1];
-        String param = query.split("=")[1];
+        if (dataStore.isEmpty()) {
+            return "{\"status\":\"ERR\",\"error\":\"empty_list\"}";
+        }
+        ArrayList<Double> numbers = new ArrayList<>();
+        for (String s : dataStore) {
+            numbers.add(Double.parseDouble(s));
+        }
 
-        String value = dataStore.element();
+        double mean = numbers.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+        double variance = n
 
-        // { "status": "ok", "mean": "5.16666666",  "stddev": 3.2071349027, "count": 3 }
-        return "{\"status\":\"" + param + "\","
-                + "\"mean\":\"" + value + "\""
-                + "\"stddev\":\"" + value + "\""
-                + "\"count\":\"" + value + "\""
-                + "}";
-
-        // respuesta 409
-        // {  "status": "ERR",  "error": "empty_list"}
-
-    }
-
-    private static String getMethodNotSupportedResponse() {
+    private static String getNotFoundResponse() {
         return "HTTP/1.1 200 OK\r\n"
                 + "Content-Type: text/html\r\n"
                 + "\r\n"
@@ -168,7 +141,6 @@ public class HttpServer {
                 + "</head>\n"
                 + "<body>\n"
                 + "<h1>No soportado</h1>\n"
-                + "<h1>{\"name\":\"John\"}</h1>\n"
                 + "</body>\n"
                 + "</html>\n";
     }

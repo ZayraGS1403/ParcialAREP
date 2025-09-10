@@ -17,8 +17,8 @@ import java.net.URL;
 public class Facade {
 
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static final String GET_URL = "http://localhost:37000";
-    private static final int PORT = 36000;
+    private static final String GET_URL = "http://localhost:9001";
+    private static final int PORT = 9000;
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = null;
@@ -107,8 +107,7 @@ public class Facade {
 
     public static String connection(String path) throws IOException {
         String query = path.split("\\?")[1];
-              
-        //limpiar espacios vacíos
+
         URL obj = new URL(GET_URL + path.replace(" ", ""));
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
@@ -124,7 +123,6 @@ public class Facade {
                 resp.append(inputLine);
             }
             in.close();
-            System.out.println("respuesta es:" + resp.toString());
             return resp.toString();
 
         } else {

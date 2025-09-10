@@ -23,7 +23,7 @@ java -cp target/classes co.edu.escuelaing.parcial1arep.HttpServer
 ### 3. Acceder a la aplicación
 
 ```
-http://localhost:36000/cliente
+http://localhost:9000/cliente
 ```
 
 
