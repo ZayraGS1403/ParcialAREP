@@ -115,7 +115,7 @@ public class HttpServer {
     private static double calcularDesviacionEstandarMuestral(ArrayList<Double> numeros) {
         int n = numeros.size();
         if (n < 2) {
-            return 0;  // No se puede calcular con menos de 2 datos
+            return 0; 
         }
         double media = calcularMedia(numeros);
         double sumaCuadrados = 0;

@@ -43,6 +43,10 @@ http://localhost:37000/cliente
   "values": [3.5, 2.0, 10]
 }`
 
+![alt text](image-3.png)
+
+![alt text](image-6.png)
+
 3. /clear
    - Respuesta: `{
   "status": "OK",
@@ -50,6 +54,7 @@ http://localhost:37000/cliente
 }`
 
 ![alt text](image-1.png)
+![alt text](image-5.png)
 
 4. /stats
    - Respuesta: `{
@@ -58,6 +63,11 @@ http://localhost:37000/cliente
   "stddev": 3.2071349027,
   "count": 3
 }`
+
+estadisticas
+
+
+![alt text](image-4.png)
 
 ## Autor
 Zayra Gutierrez
