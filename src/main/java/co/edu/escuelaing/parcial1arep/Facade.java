@@ -105,8 +105,6 @@ public class Facade {
     }
 
     public static String connection(String path) throws IOException {
-        String query = path.split("\\?")[1];
-
         URL obj = new URL(GET_URL + path.replace(" ", ""));
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
@@ -129,6 +127,7 @@ public class Facade {
             return getNotFoundResponse();
         }
     }
+
 
     private static String getNotFoundResponse() {
         return "HTTP/1.1 400 ERROR\r\n"

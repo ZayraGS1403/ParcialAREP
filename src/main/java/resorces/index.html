@@ -14,16 +14,13 @@
             <input type="button" value="Submit" onclick="loadAdd()">
             <input type="button" value="Limpiar" onclick="loadClear()">
             <input type="button" value="Listar" onclick="loadList()">
-            <input type="button" value="Estadisticas" onclick="loadStats()">
+            
         </form>
         <div id="getrespmsg"></div>
 
-        <h1> Media </h1>
+        <h1> Estadisticas </h1>
         <form action="/">
-            <label for="media">Media:</label><br>
-            <input type="text" id="media" name="media" value=""><br><br>
-
-            <input type="button" value="Submit" onclick="loadMedia()">
+            <input type="button" value="Estadisticas" onclick="loadStats()">
         </form>
         <div id="setrespmsg"></div>
 
@@ -59,11 +56,19 @@
             function loadStats() {
                 const xhttp = new XMLHttpRequest();
                 xhttp.onload = function () {
-                    document.getElementById("getrespmsg").innerHTML = this.responseText;
+                    try {
+                        const json = JSON.parse(this.responseText);
+                        document.getElementById("setrespmsg").innerHTML = 
+                            "<pre>" + JSON.stringify(json, null, 2) + "</pre>";
+                    } catch (e) {
+                        document.getElementById("setrespmsg").innerHTML = this.responseText;
+                    }
                 };
                 xhttp.open("GET", "/stats");
                 xhttp.send();
             }
+
+
             function loadMedia() {
                 const xhttp = new XMLHttpRequest();
                 xhttp.onload = function () {

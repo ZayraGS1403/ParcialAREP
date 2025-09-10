@@ -112,6 +112,20 @@ public class HttpServer {
         return suma / numeros.size();
     }
 
+    private static double calcularDesviacionEstandarMuestral(ArrayList<Double> numeros) {
+        int n = numeros.size();
+        if (n < 2) {
+            return 0;  // No se puede calcular con menos de 2 datos
+        }
+        double media = calcularMedia(numeros);
+        double sumaCuadrados = 0;
+        for (double num : numeros) {
+            sumaCuadrados += Math.pow(num - media, 2);
+        }
+        return Math.sqrt(sumaCuadrados / (n - 1));
+    }
+
+
     private static String mediaComand() {
         if (dataStore.isEmpty()) {
             return "{\"status\":\"ERR\",\"error\":\"empty_list\"}";
@@ -160,11 +174,11 @@ public class HttpServer {
         }
 
         double mean = calcularMedia(numbers);
-        double variance = numbers.stream().mapToDouble(n -> Math.pow(n - mean, 2)).average().orElse(0.0);
-        double stddev = Math.sqrt(variance);
+        double stddevMuestral = calcularDesviacionEstandarMuestral(numbers);
 
-        return "{\"status\":\"ok\",\"mean\":\"" + mean + "\",\"stddev\":\"" + stddev + "\",\"count\":\"" + numbers.size() + "\"}";
+        return "{\"status\":\"OK\",\"mean\":" + mean + ",\"stddev\":" + stddevMuestral + ",\"count\":" + numbers.size() + "}";
     }
+
 
 
     private static String getNotFoundResponse() {
