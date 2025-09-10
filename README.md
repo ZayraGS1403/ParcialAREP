@@ -23,7 +23,7 @@ java -cp target/classes co.edu.escuelaing.parcial1arep.HttpServer
 ### 3. Acceder a la aplicación
 
 ```
-http://localhost:9000/cliente
+http://localhost:37000/cliente
 ```
 
 
@@ -44,7 +44,7 @@ http://localhost:9000/cliente
 3. /clear
    - Respuesta: `{
   "status": "OK",
-  "values": [3.5, 2.0, 10]
+  "message": "list_cleared"
 }`
 
 4. /stats

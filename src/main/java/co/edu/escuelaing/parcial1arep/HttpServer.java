@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class HttpServer {
 
-    private static final int PORT = 9001;
+    private static final int PORT = 36000;
     private static LinkedList<String> dataStore = new LinkedList<>();
 
     public static void main(String[] args) throws IOException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
@@ -58,25 +58,25 @@ public class HttpServer {
             String path = firstLine.split(" ")[1];
 
             if (path.startsWith("/add")) {
-                System.out.println("entre por aquicon path----------------" + path);
+                System.out.println("entre por aqui con path----------------" + path);
                 outputLine = "HTTP/1.1 200 OK\r\n"
                         + "Content-Type: application/json\r\n"
                         + "\r\n"
                         + addComand(path);
             } else if (path.startsWith("/list")) {
-                System.out.println("entre por aquicon path----------------" + path);
+                System.out.println("entre por aqui con path----------------" + path);
                 outputLine = "HTTP/1.1 200 OK\r\n"
                         + "Content-Type: application/json\r\n"
                         + "\r\n"
                         + listComand(path);
             } else if (path.startsWith("/clear")) {
-                System.out.println("entre por aquicon path----------------" + path);
+                System.out.println("entre por aqui con path----------------" + path);
                 outputLine = "HTTP/1.1 200 OK\r\n"
                         + "Content-Type: application/json\r\n"
                         + "\r\n"
                         + clearComand(path);
             } else if (path.startsWith("/stats")) {
-                System.out.println("entre por aquicon path----------------" + path);
+                System.out.println("entre por aqui con path----------------" + path);
                 outputLine = "HTTP/1.1 200 OK\r\n"
                         + "Content-Type: application/json\r\n"
                         + "\r\n"
@@ -127,7 +127,12 @@ public class HttpServer {
         }
 
         double mean = numbers.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
-        double variance = n
+        double variance = numbers.stream().mapToDouble(n -> Math.pow(n - mean, 2)).average().orElse(0.0);
+        double stddev = Math.sqrt(variance);
+
+        return "{\"status\":\"ok\",\"mean\":\"" + mean + "\",\"stddev\":\"" + stddev + "\",\"count\":\"" + numbers.size() + "\"}";
+    }
+
 
     private static String getNotFoundResponse() {
         return "HTTP/1.1 200 OK\r\n"

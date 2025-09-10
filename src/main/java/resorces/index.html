@@ -29,34 +29,42 @@
 
         <script>
             function loadAdd() {
-                let add = document.getElementById("add").value;
+                let x = document.getElementById("anadir").value;
                 const xhttp = new XMLHttpRequest();
                 xhttp.onload = function () {
-                    document.getElementById("getrespmsg").innerHTML =
-                            this.responseText;
-                }
+                    document.getElementById("getrespmsg").innerHTML = this.responseText;
+                };
                 xhttp.open("GET", "/add?x=" + x);
                 xhttp.send();
             }
-            
+        
             function loadClear() {
-                
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function () {
+                    document.getElementById("getrespmsg").innerHTML = this.responseText;
+                };
                 xhttp.open("GET", "/clear");
                 xhttp.send();
             }
-            
+        
             function loadList() {
-                
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function () {
+                    document.getElementById("getrespmsg").innerHTML = this.responseText;
+                };
                 xhttp.open("GET", "/list");
                 xhttp.send();
             }
-            
+        
             function loadStats() {
-                
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function () {
+                    document.getElementById("getrespmsg").innerHTML = this.responseText;
+                };
                 xhttp.open("GET", "/stats");
                 xhttp.send();
             }
- 
         </script>
+                
     </body>
 </html>

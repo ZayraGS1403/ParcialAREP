@@ -17,8 +17,8 @@ import java.net.URL;
 public class Facade {
 
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static final String GET_URL = "http://localhost:9001";
-    private static final int PORT = 9000;
+    private static final String GET_URL = "http://localhost:36000";
+    private static final int PORT = 37000;
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = null;
@@ -65,7 +65,7 @@ public class Facade {
 
             if (path.startsWith("/cliente")) {
                 outputLine = readStaticFile();
-            } else if (path.startsWith("/add") || path.startsWith("/list") || path.startsWith("/clear") || path.startsWith("/stats") ) {
+            } else if (path.startsWith("/add") ) {
                 String result = connection(path);
                 if (result.contains("Error")){
                     outputLine = "HTTP/1.1 400 OK\r\n"
@@ -114,7 +114,7 @@ public class Facade {
         con.setRequestProperty("User-Agent", USER_AGENT);
 
         int respCode = con.getResponseCode();
-        System.out.println("GET resp Code :: " + respCode);
+        System.out.println("GET resp Code :" + respCode);
         if (respCode == HttpURLConnection.HTTP_OK) {
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
