@@ -1,7 +1,5 @@
-# Key-Value Store - Parcial 1 AREP
+# Calculadora Web para estimar la media y la desviación estándar de un conjunto de números  - Parcial 1 AREP
 
-## ¿Qué es?
-Un sistema de almacenamiento clave-valor distribuido que permite realizar operaciones SET y GET a través de una interfaz web. El proyecto implementa una arquitectura cliente-servidor donde el Facade actúa como proxy entre la interfaz web y el servidor de almacenamiento.
 
 ## Comandos para ejecutar
 
@@ -12,30 +10,50 @@ mvn clean install
 
 ### 2. Ejecutar los servidores
 
-#### En la primera terminal - Facade (Puerto 36000):
+#### En la primera terminal :
 ```bash
 java -cp target/classes co.edu.escuelaing.parcial1arep.Facade
 ```
 
-#### En una segunda terminal - HttpServer (Puerto 37000):
+#### En una segunda terminal - HttpServer:
 ```bash
 java -cp target/classes co.edu.escuelaing.parcial1arep.HttpServer
 ```
 
 ### 3. Acceder a la aplicación
-Abre tu navegador y ve a:
+
 ```
 http://localhost:36000/cliente
 ```
 
 
 ## Ejemplo
-1. **SET**: Key=`alumno`, Value=`zayra`
-   - Respuesta: `{"key": "alumno", "value": "zayra", "status": "created"}`
+1. **ADD**: x=3.5   
+- Respuesta: `{
+  "status": "OK",
+  "added": 3.5,
+  "count": 1
+}`
 
-2. **GET**: Key=`alumno`
-   - Respuesta: `{"key": "alumno", "value": "zayra"}`
+2. /list
+   - Respuesta: `{
+  "status": "OK",
+  "values": [3.5, 2.0, 10]
+}`
 
+3. /clear
+   - Respuesta: `{
+  "status": "OK",
+  "values": [3.5, 2.0, 10]
+}`
+
+4. /stats
+   - Respuesta: `{
+  "status": "OK",
+  "mean": 5.1666666667,
+  "stddev": 3.2071349027,
+  "count": 3
+}`
 
 ## Autor
 Zayra Gutierrez
